@@ -1,30 +1,42 @@
-📊 Customer Churn Prediction — FastAPI + Machine Learning
+# Customer Churn Prediction API
 
-This is the backend for the Customer Churn Prediction System, built using:
+A lightweight backend API for predicting customer churn (telecom) built with FastAPI and scikit-learn. The service loads a pre-trained model and exposes a /predict endpoint that returns the churn probability for a customer.
 
-FastAPI for API development
+Features
+- End-to-end ML inference API
+- Trained model serialized with joblib
+- FastAPI routes with automatic Swagger UI (/docs)
+- Input validation with Pydantic
+- CORS enabled for frontend integration
+- Model loaded once for fast inference
 
-Scikit-Learn for the machine learning model
+Table of contents
+- [Demo](#demo)
+- [API](#api)
+- [Request / Response Examples](#request--response-examples)
+- [Installation](#installation)
+- [Running the server](#running-the-server)
+- [Train your own model](#train-your-own-model)
+- [Project structure](#project-structure)
+- [Tech stack](#tech-stack)
+- [Author](#author)
+- [License](#license)
 
-Joblib for model serialization
+Demo
+- Swagger UI: http://127.0.0.1:8000/docs
+- Root endpoint: http://127.0.0.1:8000/
 
-Pydantic for input validation
-
-The backend exposes an endpoint /predict that returns the churn probability for a telecom customer.
-
-🚀 Features
-
-✔ End-to-end ML pipeline
-✔ Logistic Regression / Random Forest model
-✔ Trained on Churn dataset
-✔ Clean FastAPI structure
-✔ Swagger docs (/docs)
-✔ CORS enabled (supports frontend)
-✔ Fast inference (model loaded once)
-
-🧠 Prediction API
+API
 POST /predict
-Request Body Example
+- Accepts a JSON payload describing customer features.
+- Returns JSON with:
+  - churn (boolean): predicted class (True if predicted to churn)
+  - churn_probability (float): probability of churn (0.0 - 1.0)
+
+Request / Response Examples
+
+Sample request body:
+```json
 {
   "State": "OH",
   "Account_length": 120,
@@ -46,58 +58,94 @@ Request Body Example
   "Total_intl_charge": 3.38,
   "Customer_service_calls": 2
 }
+```
 
-Response Example
+Sample response:
+```json
 {
   "churn": false,
   "churn_probability": 0.21
 }
+```
 
-🛠️ Installation & Setup
-1️⃣ Create virtual environment
+Installation
+
+Prerequisites
+- Python 3.8+ recommended
+- git (optional)
+
+1) Clone the repository (or download)
+```bash
+git clone https://github.com/DevGokha/ml-chrun-api.git
+cd ml-chrun-api
+```
+
+2) Create a virtual environment
+- Windows:
+```powershell
 python -m venv venv
+venv\Scripts\Activate.ps1   # or venv\Scripts\activate
+```
+- macOS / Linux:
+```bash
+python3 -m venv venv
+source venv/bin/activate
+```
 
-2️⃣ Activate environment
-venv\Scripts\activate
-
-3️⃣ Install dependencies
+3) Install dependencies
+```bash
 pip install -r requirements.txt
+```
 
-4️⃣ Start server
+Running the server (development)
+```bash
 uvicorn app.main:app --reload
+```
+Server will be available at http://127.0.0.1:8000/
 
-API URLs
-
-Swagger Docs → http://127.0.0.1:8000/docs
-
-Root Endpoint → http://127.0.0.1:8000/
-
-🔁 Train Your Own Model
-
-To retrain:
-
+Train your own model
+If you want to retrain the model using the included training script:
+```bash
 python train_model.py
+```
+This script saves the trained model to:
+- models/churn_model.joblib
 
+Make sure any required training data is present and that any preprocessing steps align with what the API expects.
 
-This generates:
+Project structure (example)
+- app/
+  - main.py           # FastAPI app and routes
+  - models.py         # Pydantic input models
+  - predict.py        # prediction utilities, model loading
+- models/
+  - churn_model.joblib
+- train_model.py
+- requirements.txt
+- README.md
 
-models/churn_model.joblib
+Notes and tips
+- The API expects features in the same format used during training; ensure categorical values and numeric scaling match.
+- For production deployments, replace the development Uvicorn command with an ASGI server configuration (e.g., Gunicorn + Uvicorn workers or Uvicorn + process manager).
+- Consider adding health and metrics endpoints for monitoring.
 
-🧪 Tech Stack
+Tech stack
+- Python
+- FastAPI
+- Scikit-Learn
+- Joblib
+- Pandas
+- Uvicorn
 
-Python
-
-FastAPI
-
-Scikit-Learn
-
-Joblib
-
-Pandas
-
-Uvicorn
-
-👤 Author
-
+Author
 Dev Gokha
 AI Engineer | MERN Stack Developer | Machine Learning Engineer
+
+License
+Specify a license for your project (e.g., MIT) or include your desired license file.
+
+Contributing
+Contributions, issues and feature requests are welcome. Please open an issue or submit a PR.
+
+Acknowledgements
+- Based on standard churn dataset patterns and example pipelines; thanks to the open-source community for the tools used.
