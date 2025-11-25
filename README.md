@@ -139,5 +139,4 @@ Tech stack
 - Pandas
 - Uvicorn
 
-Author
 Author: Dev Gokha — AI Engineer | MERN Stack Developer | Machine Learning Engineer
