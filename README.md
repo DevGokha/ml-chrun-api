@@ -140,6 +140,8 @@ Tech stack
 - Uvicorn
 
 Author
+
 Dev Gokha
+
 AI Engineer | MERN Stack Developer | Machine Learning Engineer
 
