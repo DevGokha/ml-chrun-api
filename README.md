@@ -116,10 +116,12 @@ Make sure any required training data is present and that any preprocessing steps
 Project structure (example)
 - app/
   - main.py           # FastAPI app and routes
-  - models.py         # Pydantic input models
-  - predict.py        # prediction utilities, model loading
+  - schemas.py
+- data/
+  - churn-bigml-80.csv 
 - models/
   - churn_model.joblib
+- inspect_data.py 
 - train_model.py
 - requirements.txt
 - README.md
@@ -141,11 +143,3 @@ Author
 Dev Gokha
 AI Engineer | MERN Stack Developer | Machine Learning Engineer
 
-License
-Specify a license for your project (e.g., MIT) or include your desired license file.
-
-Contributing
-Contributions, issues and feature requests are welcome. Please open an issue or submit a PR.
-
-Acknowledgements
-- Based on standard churn dataset patterns and example pipelines; thanks to the open-source community for the tools used.
